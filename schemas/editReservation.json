@@ -1,0 +1,7 @@
+{
+    "reservationId": "string",
+    "newDate": "YYYY-MM-DD",
+    "newStartTime": "HH:MM",
+    "newEndTime": "HH:MM",
+    "newDescription": "string"
+}
