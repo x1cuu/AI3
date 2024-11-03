@@ -1,0 +1,21 @@
+Fluxos de dados do Diagrama de Contexto entre o cliente e o serviço (API)
+
+1.Registo e autenticação de utilizadores
+- Registo de novos utilizadores
+- Login de utilizadores
+- Recuperação de senha
+
+2.Criação de reservas
+- Envio de informações sobre a reserva(data, hora de início, hora de fim, descrição) para criação de uma nova reserva
+
+3.Consulta de Reservas
+- Recuperação de reservas com base em filtros com data e sala
+- Consulta de reservas específicas aos utilizadores
+
+4.Edição e Cancelamento de Reservas
+- Envio de dados de edição de reserva
+- Cancelamento de reservas existentes
+
+5.Gestão de Salas
+- Criação, edição e remoção de salas
+- Definição de capacidade e quipamento das salas
