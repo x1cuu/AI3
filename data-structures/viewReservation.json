@@ -1,5 +1,6 @@
 {
     "roomId": "string",
     "date": "YYYY-MM-DD",
-    "userId": "string"
+    "userId": "string",
+    "EndTime":"HH:MM"
 }
