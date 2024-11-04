@@ -1,0 +1,12 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "title": "User Registration",
+    "type": "object",
+    "properties": {
+      "username": { "type": "string", "minLength": 3 },
+      "email": { "type": "string", "format": "email" },
+      "password": { "type": "string", "minLength": 8 }
+    },
+    "required": ["username", "email", "password"]
+  }
+  
