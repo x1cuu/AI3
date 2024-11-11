@@ -4,9 +4,9 @@
     "type": "object",
     "properties": {
       "reservationId": { "type": "string", "pattern": "^[a-fA-F0-9]{24}$" },
-      "newStartTime": { "type": "string", "pattern": "^([01]?[0-9]|2[0-3]):[0-5][0-9]$" },
-      "newEndTime": { "type": "string", "pattern": "^([01]?[0-9]|2[0-3]):[0-5][0-9]$" },
+      "newStartTime": { "type": "string", "pattern": "date-time" },
+      "newEndTime": { "type": "string", "pattern": "date-time" },
       "newDescription": { "type": "string", "maxLength": 200 }
     },
-    "required": ["reservationId", "newDate", "newStartTime", "newEndTime", "newDescription"]
+    "required": ["reservationId", "newStartTime", "newEndTime", "newDescription"]
   }
