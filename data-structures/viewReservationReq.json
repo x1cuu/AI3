@@ -1,0 +1,5 @@
+{
+    "roomId": "string",
+    "startDate": "YYYY-MM-DD hh:mm",
+    "endDate": "YYYY-MM-DD hh:mm"
+}
