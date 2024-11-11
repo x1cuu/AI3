@@ -1,0 +1,377 @@
+openapi: 3.0.0
+info:
+  title: Sistema de Reserva de Salas Online
+  description: API para gestão de reservas de salas em tempo real.
+  version: "1.0.0"
+  
+servers:
+  - url: https://api.exemplo.com
+    description: Servidor de Produção
+  - url: https://api.dev.exemplo.com
+    description: Servidor de Desenvolvimento
+
+paths:
+  /api/users/register:
+    post:
+      summary: Registo de novo utilizador
+      description: Regista um novo utilizador.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserRegistration'
+      responses:
+        201:
+          description: Utilizador criado com sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  userId:
+                    type: string
+                  message:
+                    type: string
+                    example: "Utilizador criado com sucesso"
+        400:
+          description: Dados inválidos
+
+  /api/users/login:
+    post:
+      summary: Login do utilizador
+      description: Autentica um utilizador existente.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserLogin'
+      responses:
+        200:
+          description: Login bem-sucedido
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  token:
+                    type: string
+                  userId:
+                    type: string
+                  message:
+                    type: string
+                    example: "Login bem-sucedido"
+        401:
+          description: Credenciais inválidas
+
+  /api/users/recover-password:
+    post:
+      summary: Recuperação de palavra-passe
+      description: Envia um link de recuperação para o email do utilizador.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PasswordRecovery'
+      responses:
+        200:
+          description: Link de recuperação enviado
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Link de recuperação enviado para o email"
+
+  /api/reservations:
+    post:
+      summary: Criação de reserva de sala
+      description: Cria uma nova reserva de sala para o utilizador autenticado.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateReservation'
+      responses:
+        201:
+          description: Reserva criada com sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  reservationId:
+                    type: string
+                  message:
+                    type: string
+                    example: "Reserva criada com sucesso"
+
+    get:
+      summary: Consulta de reservas
+      description: Permite visualizar reservas filtrando por sala e/ou data.
+      parameters:
+        - name: roomId
+          in: query
+          required: false
+          schema:
+            type: string
+          description: ID da sala
+        - name: date
+          in: query
+          required: false
+          schema:
+            type: string
+            format: date
+          description: Data da reserva
+      responses:
+        200:
+          description: Lista de reservas
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  reservations:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/ViewReservation'
+
+  /api/reservations/{reservationId}:
+    put:
+      summary: Edição de reserva de sala
+      description: Permite editar uma reserva existente.
+      parameters:
+        - name: reservationId
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EditReservation'
+      responses:
+        200:
+          description: Reserva atualizada com sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Reserva atualizada com sucesso"
+
+    delete:
+      summary: Cancelamento de reserva de sala
+      description: Permite cancelar uma reserva existente.
+      parameters:
+        - name: reservationId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: Reserva cancelada com sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Reserva cancelada com sucesso"
+
+  /api/rooms:
+    post:
+      summary: Criação de nova sala
+      description: Permite ao administrador criar uma nova sala.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RoomManagement'
+      responses:
+        201:
+          description: Sala criada com sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  roomId:
+                    type: string
+                  message:
+                    type: string
+                    example: "Sala criada com sucesso"
+
+  /api/rooms/{roomId}:
+    put:
+      summary: Edição de sala
+      description: Permite ao administrador editar uma sala existente.
+      parameters:
+        - name: roomId
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RoomManagement'
+      responses:
+        200:
+          description: Sala atualizada com sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Sala atualizada com sucesso"
+
+    delete:
+      summary: Remoção de sala
+      description: Permite ao administrador remover uma sala.
+      parameters:
+        - name: roomId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: Sala removida com sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Sala removida com sucesso"
+
+components:
+  schemas:
+    UserRegistration:
+      type: object
+      properties:
+        username:
+          type: string
+        email:
+          type: string
+          format: email
+        password:
+          type: string
+      required:
+        - username
+        - email
+        - password
+
+    UserLogin:
+      type: object
+      properties:
+        email:
+          type: string
+          format: email
+        password:
+          type: string
+      required:
+        - email
+        - password
+
+    PasswordRecovery:
+      type: object
+      properties:
+        email:
+          type: string
+          format: email
+      required:
+        - email
+
+    CreateReservation:
+      type: object
+      properties:
+        userId:
+          type: string
+        roomId:
+          type: string
+        date:
+          type: string
+          format: date
+        startTime:
+          type: string
+          example: "10:00"
+        endTime:
+          type: string
+          example: "11:00"
+        description:
+          type: string
+      required:
+        - userId
+        - roomId
+        - date
+        - startTime
+        - endTime
+        - description
+
+    ViewReservation:
+      type: object
+      properties:
+        reservationId:
+          type: string
+        userId:
+          type: string
+        roomId:
+          type: string
+        date:
+          type: string
+          format: date
+        startTime:
+          type: string
+        endTime:
+          type: string
+        description:
+          type: string
+
+    EditReservation:
+      type: object
+      properties:
+        reservationId:
+          type: string
+        newDate:
+          type: string
+          format: date
+        newStartTime:
+          type: string
+        newEndTime:
+          type: string
+        newDescription:
+          type: string
+
+    RoomManagement:
+      type: object
+      properties:
+        name:
+          type: string
+        capacity:
+          type: integer
+        equipment:
+          type: array
+          items:
+            type: string
+      required:
+        - name
+        - capacity
