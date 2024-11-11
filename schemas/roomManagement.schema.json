@@ -3,7 +3,6 @@
     "title": "Room Management",
     "type": "object",
     "properties": {
-      "roomId": { "type": "string", "pattern": "^[a-fA-F0-9]{24}$" },
       "name": { "type": "string", "maxLength": 50 },
       "capacity": { "type": "integer", "minimum": 1 },
       "equipment": {
@@ -15,6 +14,6 @@
         "uniqueItems": true
       }
     },
-    "required": ["name", "capacity", "equipment"]
+    "required": ["name", "capacity"]
   }
   
