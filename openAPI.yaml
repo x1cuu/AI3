@@ -11,7 +11,7 @@ servers:
     description: Servidor de Desenvolvimento
 
 paths:
-  /api/users/userRegistration:
+  /users/register:
     post:
       summary: Registo de novo utilizador
       description: Regista um novo utilizador.
@@ -37,7 +37,7 @@ paths:
         400:
           description: Dados inválidos
 
-  /api/users/userLogin:
+  /users/userLogin:
     post:
       summary: Login do utilizador
       description: Autentica um utilizador existente.
@@ -65,7 +65,7 @@ paths:
         401:
           description: Credenciais inválidas
 
-  /api/users/passwordRecovery:
+  /users/passwordRecovery:
     post:
       summary: Recuperação de palavra-passe
       description: Envia um link de recuperação para o email do utilizador.
@@ -87,7 +87,7 @@ paths:
                     type: string
                     example: "Link de recuperação enviado para o email"
 
-  /api/createReservation:
+  /reservation/create:
     post:
       summary: Criação de reserva de sala
       description: Cria uma nova reserva de sala para o utilizador autenticado.
@@ -141,7 +141,7 @@ paths:
                     items:
                       $ref: '#/components/schemas/viewReservation'
 
-  /api/editReservation:
+  /reservation/edit:
     put:
       summary: Edição de reserva de sala
       description: Permite editar uma reserva existente.
@@ -189,6 +189,80 @@ paths:
                   message:
                     type: string
                     example: "Reserva cancelada com sucesso"
+
+  /rooms/create:
+    post:
+      summary: Criação de nova sala
+      description: Permite ao administrador criar uma nova sala.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RoomManagement'
+      responses:
+        201:
+          description: Sala criada com sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  roomId:
+                    type: string
+                  message:
+                    type: string
+                    example: "Sala criada com sucesso"
+
+  /rooms/{roomId}:
+    put:
+      summary: Edição de sala
+      description: Permite ao administrador editar uma sala existente.
+      parameters:
+        - name: roomId
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/roomManagement'
+      responses:
+        200:
+          description: Sala atualizada com sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Sala atualizada com sucesso"
+
+    delete:
+      summary: Remoção de sala
+      description: Permite ao administrador remover uma sala.
+      parameters:
+        - name: roomId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: Sala removida com sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Sala removida com sucesso"
+    
 
 components:
   schemas:
