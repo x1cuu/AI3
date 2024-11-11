@@ -235,9 +235,6 @@ components:
           type: string
         roomId:
           type: string
-        date:
-          type: string
-          format: date
         startTime:
           type: string
           example: "10:00"
