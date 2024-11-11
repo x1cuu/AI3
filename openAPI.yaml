@@ -11,7 +11,7 @@ servers:
     description: Servidor de Desenvolvimento
 
 paths:
-  /api/users/register:
+  /api/users/userRegistration:
     post:
       summary: Registo de novo utilizador
       description: Regista um novo utilizador.
@@ -20,7 +20,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/UserRegistration'
+              $ref: '#/components/schemas/userRegistration'
       responses:
         201:
           description: Utilizador criado com sucesso
@@ -37,7 +37,7 @@ paths:
         400:
           description: Dados inválidos
 
-  /api/users/login:
+  /api/users/userLogin:
     post:
       summary: Login do utilizador
       description: Autentica um utilizador existente.
@@ -46,7 +46,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/UserLogin'
+              $ref: '#/components/schemas/userLogin'
       responses:
         200:
           description: Login bem-sucedido
@@ -65,7 +65,7 @@ paths:
         401:
           description: Credenciais inválidas
 
-  /api/users/recover-password:
+  /api/users/passwordRecovery:
     post:
       summary: Recuperação de palavra-passe
       description: Envia um link de recuperação para o email do utilizador.
@@ -74,7 +74,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/PasswordRecovery'
+              $ref: '#/components/schemas/passwordRecovery'
       responses:
         200:
           description: Link de recuperação enviado
@@ -87,7 +87,7 @@ paths:
                     type: string
                     example: "Link de recuperação enviado para o email"
 
-  /api/reservations:
+  /api/createReservation:
     post:
       summary: Criação de reserva de sala
       description: Cria uma nova reserva de sala para o utilizador autenticado.
@@ -96,7 +96,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/CreateReservation'
+              $ref: '#/components/schemas/createReservation'
       responses:
         201:
           description: Reserva criada com sucesso
@@ -139,9 +139,9 @@ paths:
                   reservations:
                     type: array
                     items:
-                      $ref: '#/components/schemas/ViewReservation'
+                      $ref: '#/components/schemas/viewReservation'
 
-  /api/reservations/{reservationId}:
+  /api/editReservation:
     put:
       summary: Edição de reserva de sala
       description: Permite editar uma reserva existente.
@@ -156,7 +156,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/EditReservation'
+              $ref: '#/components/schemas/editReservation'
       responses:
         200:
           description: Reserva atualizada com sucesso
@@ -190,82 +190,9 @@ paths:
                     type: string
                     example: "Reserva cancelada com sucesso"
 
-  /api/rooms:
-    post:
-      summary: Criação de nova sala
-      description: Permite ao administrador criar uma nova sala.
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/RoomManagement'
-      responses:
-        201:
-          description: Sala criada com sucesso
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  roomId:
-                    type: string
-                  message:
-                    type: string
-                    example: "Sala criada com sucesso"
-
-  /api/rooms/{roomId}:
-    put:
-      summary: Edição de sala
-      description: Permite ao administrador editar uma sala existente.
-      parameters:
-        - name: roomId
-          in: path
-          required: true
-          schema:
-            type: string
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/RoomManagement'
-      responses:
-        200:
-          description: Sala atualizada com sucesso
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  message:
-                    type: string
-                    example: "Sala atualizada com sucesso"
-
-    delete:
-      summary: Remoção de sala
-      description: Permite ao administrador remover uma sala.
-      parameters:
-        - name: roomId
-          in: path
-          required: true
-          schema:
-            type: string
-      responses:
-        200:
-          description: Sala removida com sucesso
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  message:
-                    type: string
-                    example: "Sala removida com sucesso"
-
 components:
   schemas:
-    UserRegistration:
+    userRegistration:
       type: object
       properties:
         username:
@@ -280,7 +207,7 @@ components:
         - email
         - password
 
-    UserLogin:
+    userLogin:
       type: object
       properties:
         email:
@@ -292,7 +219,7 @@ components:
         - email
         - password
 
-    PasswordRecovery:
+    passwordRecovery:
       type: object
       properties:
         email:
@@ -301,16 +228,13 @@ components:
       required:
         - email
 
-    CreateReservation:
+    createReservation:
       type: object
       properties:
         userId:
           type: string
         roomId:
           type: string
-        date:
-          type: string
-          format: date
         startTime:
           type: string
           example: "10:00"
@@ -322,38 +246,27 @@ components:
       required:
         - userId
         - roomId
-        - date
         - startTime
         - endTime
         - description
 
-    ViewReservation:
+    viewReservation:
       type: object
       properties:
-        reservationId:
-          type: string
         userId:
           type: string
         roomId:
           type: string
-        date:
-          type: string
-          format: date
         startTime:
           type: string
         endTime:
           type: string
-        description:
-          type: string
 
-    EditReservation:
+    editReservation:
       type: object
       properties:
         reservationId:
           type: string
-        newDate:
-          type: string
-          format: date
         newStartTime:
           type: string
         newEndTime:
@@ -361,7 +274,7 @@ components:
         newDescription:
           type: string
 
-    RoomManagement:
+    roomInfo:
       type: object
       properties:
         name:
