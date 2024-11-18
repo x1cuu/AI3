@@ -1,0 +1,26 @@
+{
+    "type": "object",
+    "properties": {
+      "roomId": {
+        "type": "string",
+        "description": "ID único da sala que será editada"
+      },
+      "name": {
+        "type": "string",
+        "description": "Novo nome da sala (opcional)"
+      },
+      "capacity": {
+        "type": "integer",
+        "description": "Nova capacidade da sala (opcional)"
+      },
+      "equipment": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        },
+        "description": "Nova lista de equipamentos disponíveis na sala (opcional)"
+      }
+    },
+    "required": ["roomId"]
+  }
+  
