@@ -189,17 +189,24 @@ paths:
                   message:
                     type: string
                     example: "Reserva cancelada com sucesso"
-
-  /rooms/create:
+                    
+  /api/rooms/createRoom:
     post:
-      summary: Criação de nova sala
-      description: Permite ao administrador criar uma nova sala.
+      summary: Criação de uma nova sala
+      description: Permite criar uma nova sala com informações como nome, capacidade e equipamentos.
+      parameters:
+        - name: Authorization
+          in: header
+          required: true
+          schema:
+            type: string
+          description: Token de autenticação do administrador.
       requestBody:
         required: true
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/RoomManagement'
+              $ref: '#/components/schemas/roomInfo'
       responses:
         201:
           description: Sala criada com sucesso
@@ -213,23 +220,34 @@ paths:
                   message:
                     type: string
                     example: "Sala criada com sucesso"
+        400:
+          description: Dados inválidos
+        403:
+          description: Não autorizado
 
-  /rooms/{roomId}:
+  /api/rooms/editRoom:
     put:
       summary: Edição de sala
-      description: Permite ao administrador editar uma sala existente.
+      description: Permite editar as informações de uma sala existente.
       parameters:
         - name: roomId
           in: path
           required: true
           schema:
             type: string
+          description: ID da sala a ser editada.
+        - name: Authorization
+          in: header
+          required: true
+          schema:
+            type: string
+          description: Token de autenticação do administrador.
       requestBody:
         required: true
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/roomManagement'
+              $ref: '#/components/schemas/roomInfo'
       responses:
         200:
           description: Sala atualizada com sucesso
@@ -241,19 +259,33 @@ paths:
                   message:
                     type: string
                     example: "Sala atualizada com sucesso"
+        400:
+          description: Dados inválidos
+        403:
+          description: Não autorizado
+        404:
+          description: Sala não encontrada
 
+  /api/rooms/deleteRoom:
     delete:
-      summary: Remoção de sala
-      description: Permite ao administrador remover uma sala.
+      summary: Exclusão de sala
+      description: Permite excluir uma sala existente.
       parameters:
         - name: roomId
           in: path
           required: true
           schema:
             type: string
+          description: ID da sala a ser excluída.
+        - name: Authorization
+          in: header
+          required: true
+          schema:
+            type: string
+          description: Token de autenticação do administrador.
       responses:
         200:
-          description: Sala removida com sucesso
+          description: Sala excluída com sucesso
           content:
             application/json:
               schema:
@@ -261,7 +293,11 @@ paths:
                 properties:
                   message:
                     type: string
-                    example: "Sala removida com sucesso"
+                    example: "Sala excluída com sucesso"
+        403:
+          description: Não autorizado
+        404:
+          description: Sala não encontrada
     
 
 components:
@@ -353,12 +389,15 @@ components:
       properties:
         name:
           type: string
+          description: Nome da sala
         capacity:
           type: integer
+          description: Capacidade da sala
         equipment:
           type: array
           items:
             type: string
+          description: Lista de equipamentos disponíveis na sala
       required:
         - name
         - capacity
