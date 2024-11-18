@@ -37,7 +37,7 @@ paths:
         400:
           description: Dados inválidos
 
-  /users/userLogin:
+  /users/Login:
     post:
       summary: Login do utilizador
       description: Autentica um utilizador existente.
@@ -189,8 +189,8 @@ paths:
                   message:
                     type: string
                     example: "Reserva cancelada com sucesso"
-                    
-  /api/rooms/createRoom:
+
+  /rooms/create:
     post:
       summary: Criação de uma nova sala
       description: Permite criar uma nova sala com informações como nome, capacidade e equipamentos.
@@ -225,7 +225,7 @@ paths:
         403:
           description: Não autorizado
 
-  /api/rooms/editRoom:
+  /rooms/edit:
     put:
       summary: Edição de sala
       description: Permite editar as informações de uma sala existente.
@@ -266,7 +266,7 @@ paths:
         404:
           description: Sala não encontrada
 
-  /api/rooms/deleteRoom:
+  /rooms/delete:
     delete:
       summary: Exclusão de sala
       description: Permite excluir uma sala existente.
