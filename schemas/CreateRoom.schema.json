@@ -1,0 +1,22 @@
+{
+    "type": "object",
+    "properties": {
+      "name": {
+        "type": "string",
+        "description": "Nome da sala"
+      },
+      "capacity": {
+        "type": "integer",
+        "description": "Capacidade máxima da sala"
+      },
+      "equipment": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        },
+        "description": "Lista de equipamentos disponíveis na sala"
+      }
+    },
+    "required": ["name", "capacity"]
+  }
+  

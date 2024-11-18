@@ -1,0 +1,11 @@
+{
+    "type": "object",
+    "properties": {
+      "roomId": {
+        "type": "string",
+        "description": "ID único da sala que será excluída"
+      }
+    },
+    "required": ["roomId"]
+  }
+  

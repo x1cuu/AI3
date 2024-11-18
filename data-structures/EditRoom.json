@@ -1,0 +1,6 @@
+{
+    "roomId": "string",
+    "name": "string",
+    "capacity": "integer",
+    "equipment": ["string"]
+}
