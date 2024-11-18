@@ -36,6 +36,10 @@ paths:
                     example: "Utilizador criado com sucesso"
         400:
           description: Dados inválidos
+        409:
+          description: Este utilizador já esxiste
+        429:
+          description: Atingiu o limite de pedidos
 
   /users/Login:
     post:
@@ -62,8 +66,12 @@ paths:
                   message:
                     type: string
                     example: "Login bem-sucedido"
+        400:
+          description: Dados inválidos
         401:
           description: Credenciais inválidas
+        403:
+          description: Utilizador ou password incorretas
 
   /users/passwordRecovery:
     post:
@@ -86,6 +94,8 @@ paths:
                   message:
                     type: string
                     example: "Link de recuperação enviado para o email"
+        400:
+          description: Dados inválidos
 
   /reservation/create:
     post:
@@ -110,6 +120,14 @@ paths:
                   message:
                     type: string
                     example: "Reserva criada com sucesso"
+        400:
+          description: Dados inválidos
+        401:
+          description: Credenciais inválidas
+        409:
+          description: Esta reserva já esxiste
+        429:
+          description: Atingiu o limite de pedidos
 
     get:
       summary: Consulta de reservas
@@ -141,7 +159,7 @@ paths:
                     items:
                       $ref: '#/components/schemas/viewReservation'
 
-  /reservation/edit:
+  /reservation/{id}:
     put:
       summary: Edição de reserva de sala
       description: Permite editar uma reserva existente.
@@ -168,6 +186,12 @@ paths:
                   message:
                     type: string
                     example: "Reserva atualizada com sucesso"
+        400:
+          description: Dados inválidos
+        401:
+          description: Credenciais inválidas
+        404:
+          description: Sala não encontrada
 
     delete:
       summary: Cancelamento de reserva de sala
@@ -189,6 +213,10 @@ paths:
                   message:
                     type: string
                     example: "Reserva cancelada com sucesso"
+        401:
+          description: Credenciais inválidas
+        404:
+          description: Sala não encontrada
 
   /rooms/create:
     post:
@@ -222,10 +250,16 @@ paths:
                     example: "Sala criada com sucesso"
         400:
           description: Dados inválidos
+        401:
+          description: Credenciais inválidas
         403:
           description: Não autorizado
+        409:
+          description: Esta sala já esxiste
+        429:
+          description: Atingiu o limite de pedidos
 
-  /rooms/edit:
+  /rooms/{id}:
     put:
       summary: Edição de sala
       description: Permite editar as informações de uma sala existente.
@@ -261,12 +295,14 @@ paths:
                     example: "Sala atualizada com sucesso"
         400:
           description: Dados inválidos
+        401:
+          description: Credenciais inválidas
         403:
           description: Não autorizado
         404:
           description: Sala não encontrada
 
-  /rooms/delete:
+  /rooms/{id}}:
     delete:
       summary: Exclusão de sala
       description: Permite excluir uma sala existente.
@@ -294,6 +330,8 @@ paths:
                   message:
                     type: string
                     example: "Sala excluída com sucesso"
+        401:
+          description: Credenciais inválidas
         403:
           description: Não autorizado
         404:
