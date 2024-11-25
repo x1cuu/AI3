@@ -137,7 +137,7 @@ paths:
         429:
           description: Atingiu o limite de pedidos
   /reservation/view:
-    post:
+    get:
       summary: Consulta de reservas
       description: Permite visualizar reservas filtrando por sala e/ou data.
       parameters:
