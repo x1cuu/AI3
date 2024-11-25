@@ -97,10 +97,18 @@ paths:
         400:
           description: Dados inválidos
 
+  
   /reservation/create:
     post:
       summary: Criação de reserva de sala
       description: Cria uma nova reserva de sala para o utilizador autenticado.
+      parameters:
+      - name: Authorization
+        in: header
+        required: true
+        schema:
+          type: string
+        description: Token de autenticação do utilizador.
       requestBody:
         required: true
         content:
@@ -128,8 +136,8 @@ paths:
           description: Esta reserva já esxiste
         429:
           description: Atingiu o limite de pedidos
-
-    get:
+  /reservation/view:
+    post:
       summary: Consulta de reservas
       description: Permite visualizar reservas filtrando por sala e/ou data.
       parameters:
@@ -164,11 +172,18 @@ paths:
       summary: Edição de reserva de sala
       description: Permite editar uma reserva existente.
       parameters:
-        - name: reservationId
-          in: path
-          required: true
-          schema:
-            type: string
+      - name: reservationId
+        in: path
+        required: true
+        schema:
+          type: string
+        description: ID da reserva.
+      - name: Authorization
+        in: header
+        required: true
+        schema:
+          type: string
+        description: Token de autenticação do utilizador.
       requestBody:
         required: true
         content:
@@ -197,11 +212,18 @@ paths:
       summary: Cancelamento de reserva de sala
       description: Permite cancelar uma reserva existente.
       parameters:
-        - name: reservationId
-          in: path
-          required: true
-          schema:
-            type: string
+      - name: reservationId
+        in: path
+        required: true
+        schema:
+          type: string
+        description: ID da reserva.
+      - name: Authorization
+        in: header
+        required: true
+        schema:
+          type: string
+        description: Token de autenticação do utilizador.
       responses:
         200:
           description: Reserva cancelada com sucesso
