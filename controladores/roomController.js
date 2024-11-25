@@ -17,4 +17,3 @@ exports.create = (req, res) => {
   exports.delete = (req, res) => {
     res.status(501).json({ message: 'Not implemented yet' });
   };
-  
