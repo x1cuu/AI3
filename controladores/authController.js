@@ -1,12 +1,11 @@
-exports.register = (req, res) => {
-    res.status(501).json({ message: 'Not implemented yet' });
+exports.registerUser = (req, res) => {
+    res.status(501).json({ message: 'Endpoint não implementado' }); // Implementar lógica
   };
   
-  exports.login = (req, res) => {
-    res.status(501).json({ message: 'Not implemented yet' });
+  exports.loginUser = (req, res) => {
+    res.status(501).json({ message: 'Endpoint não implementado' }); // Implementar lógica
   };
   
-  exports.recoverPassword = (req, res) => {
-    res.status(501).json({ message: 'Not implemented yet' });
+  exports.passwordRecovery = (req, res) => {
+    res.status(501).json({ message: 'Endpoint não implementado' }); // Implementar lógica
   };
-  

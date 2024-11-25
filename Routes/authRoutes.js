@@ -1,12 +1,11 @@
 const express = require('express');
 const router = express.Router();
 
-// Importação do controlador
 const authController = require('../controllers/authController');
 
-// Endpoints de autenticação
-router.post('/register', authController.register); // Registo de utilizador
-router.post('/login', authController.login); // Login
-router.post('/recover-password', authController.recoverPassword); // Recuperação de palavra-passe
+// Rotas de autenticação
+router.post('/register', authController.registerUser); // Registo
+router.post('/login', authController.loginUser); // Login
+router.post('/passwordRecovery', authController.passwordRecovery); // Recuperação de palavra-passe
 
 module.exports = router;
