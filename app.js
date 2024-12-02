@@ -19,4 +19,8 @@ mongoose
   .then(() => console.log('Connected to MongoDB'))
   .catch(err => console.error('MongoDB connection error:', err));
 
-module.exports = app;
+// Servidor
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+  console.log(`Servidor ativo em http://localhost:${PORT}`);
+});

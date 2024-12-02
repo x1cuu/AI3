@@ -13,19 +13,14 @@ const createReservation = async (req, res) => {
   }
 };
 
-const viewReservations = async (req, res) => {
-  try {
-    const { roomId, startTime, endTime } = req.query;
-    const filter = {};
-    if (roomId) filter.roomId = roomId;
-    if (startTime) filter.startTime = { $gte: new Date(startTime) };
-    if (endTime) filter.endTime = { $lte: new Date(endTime) };
-
-    const reservations = await Reservation.find(filter).populate('roomId userId');
-    res.json({ reservations });
-  } catch (error) {
-    res.status(400).json({ error: error.message });
-  }
+exports.viewReservations = (req, res) => {
+  res.status(501).json({ message: 'Endpoint não implementado' }); // Implementar lógica(por implementar)
 };
 
-module.exports = { createReservation, viewReservations };
+exports.editReservation = (req, res) => {
+  res.status(501).json({ message: 'Endpoint não implementado' }); // Implementar lógica
+};
+
+exports.cancelReservation = (req, res) => {
+  res.status(501).json({ message: 'Endpoint não implementado' }); // Implementar lógica
+};
