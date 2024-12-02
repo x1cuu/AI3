@@ -14,7 +14,7 @@ app.use('/api/rooms', roomRoutes);
 
 // Erro Genérico
 app.use((err, req, res, next) => {
-  res.status(err.status || 500).json({ message: err.message ||  'Erro interno no servidor' });
+  res.status(err.status || 500).json({ message: err.message || 'Erro interno no servidor' });
 });
 
 // Servidor
