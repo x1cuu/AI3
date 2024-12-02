@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const roomController = require('../controllers/roomController');
+const roomController = require('../controladores/roomController');
 
 // Rotas de salas
 router.post('/create', roomController.createRoom); // Criar sala
