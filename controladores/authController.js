@@ -1,8 +1,8 @@
-exports.registerUser = (req, res) => {
+exports.userRegistration = (req, res) => {
     res.status(501).json({ message: 'Endpoint não implementado' }); // Implementar lógica
   };
   
-  exports.loginUser = (req, res) => {
+  exports.userLogin = (req, res) => {
     res.status(501).json({ message: 'Endpoint não implementado' }); // Implementar lógica
   };
   

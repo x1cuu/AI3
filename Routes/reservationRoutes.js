@@ -4,8 +4,8 @@ const reservationController = require('../controllers/reservationController');
 
 // Rotas de reservas
 router.post('/create', reservationController.createReservation); // Criar reserva
-router.get('/view', reservationController.viewReservations); // Consultar reservas
-router.put('/:id', reservationController.updateReservation); // Atualizar reserva
-router.delete('/:id', reservationController.deleteReservation); // Cancelar reserva
+router.get('/view', reservationController.viewReservations); // Consultar reservas(por implementar)
+router.put('/:id', reservationController.editReservation); // Atualizar reserva
+router.delete('/:id', reservationController.cancelReservation); // Cancelar reserva
 
 module.exports = router;
