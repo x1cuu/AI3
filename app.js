@@ -1,24 +1,22 @@
 const express = require('express');
+const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const authRoutes = require('./routes/authRoutes');
 const reservationRoutes = require('./routes/reservationRoutes');
-const roomRoutes = require('./routes/roomRoutes');
+
+require('dotenv').config();
 
 const app = express();
 app.use(bodyParser.json());
 
 // Rotas
-app.use('/api/users', authRoutes);
-app.use('/api/reservations', reservationRoutes);
-app.use('/api/rooms', roomRoutes);
+app.use('/users', authRoutes);
+app.use('/reservation', reservationRoutes);
 
-// Erro Genérico
-app.use((err, req, res, next) => {
-  res.status(err.status || 500).json({ message: err.message || 'Erro interno no servidor' });
-});
+// Conexão ao MongoDB
+mongoose
+  .connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true })
+  .then(() => console.log('Connected to MongoDB'))
+  .catch(err => console.error('MongoDB connection error:', err));
 
-// Servidor
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
-  console.log(Servidor ativo em http://localhost:${PORT});
-});
+module.exports = app;
