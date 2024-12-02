@@ -121,13 +121,23 @@ paths:
           schema:
             type: string
           description: ID da sala
-        - name: date
+
+        - name: startTime
           in: query
           required: false
           schema:
             type: string
-            format: date
-          description: Data da reserva
+            format: startTime
+          description: Inicio da reserva
+          
+        - name: endTime
+          in: query
+          required: false
+          schema:
+            type: string
+            format: endTime
+          description: Fim da reserva
+
       responses:
         200:
           description: Lista de reservas
