@@ -1,14 +1,15 @@
-const mongoose = require('mongoose');
+const { DataTypes } = require('sequelize');
+const sequelize = require('./index');
+const User = require('./user');
+const Room = require('./room');
 
-const reservationSchema = new mongoose.Schema({
-  userId: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
-  roomId: { type: mongoose.Schema.Types.ObjectId, ref: 'Room', required: true },
-  startTime: { type: Date, required: true },
-  endTime: { type: Date, required: true },
-  description: { type: String, required: true },
+const Reservation = sequelize.define('Reservation', {
+  startTime: { type: DataTypes.DATE, allowNull: false },
+  endTime: { type: DataTypes.DATE, allowNull: false },
+  description: { type: DataTypes.STRING, allowNull: true },
 });
 
-reservationSchema.index({ roomId: 1, startTime: 1, endTime: 1 }, { unique: true });
+Reservation.belongsTo(User, { foreignKey: 'userId' });
+Reservation.belongsTo(Room, { foreignKey: 'roomId' });
 
-const Reservation = mongoose.model('Reservation', reservationSchema);
 module.exports = Reservation;

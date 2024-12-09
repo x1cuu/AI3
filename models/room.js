@@ -1,10 +1,10 @@
-const mongoose = require('mongoose');
+const { DataTypes } = require('sequelize');
+const sequelize = require('./index');
 
-const roomSchema = new mongoose.Schema({
-  name: { type: String, required: true, unique: true },
-  capacity: { type: Number, required: true },
-  equipment: [{ type: String }],
+const Room = sequelize.define('Room', {
+  name: { type: DataTypes.STRING, allowNull: false },
+  capacity: { type: DataTypes.INTEGER, allowNull: false },
+  equipment: { type: DataTypes.JSON, allowNull: true },
 });
 
-const Room = mongoose.model('Room', roomSchema);
 module.exports = Room;
