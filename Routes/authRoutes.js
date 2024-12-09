@@ -1,9 +1,7 @@
 const express = require('express');
-const { register, login } = require('../controladores/authController');
+const authController= require('../controladores/authController');
 const router = express.Router();
 
-router.post('/register', register);
-router.post('/login', login);
 
 // Rotas de autenticação
 router.post('/register', authController.userResgistration); // Registo
