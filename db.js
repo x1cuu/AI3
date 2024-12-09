@@ -1,23 +1,17 @@
-// Importando o mongoose
-const mongoose = require('mongoose');
+const { MongoClient } = require("mongodb");
 
-// Configuração da URL de conexão com o MongoDB
-const mongoURI = 'mongodb://localhost:27017/sistema_reserva';  // Você pode alterar o URI se usar um MongoDB na nuvem (Atlas, por exemplo)
+const uri = "mongodb://127.0.0.1:27017";
+const client = new MongoClient(uri);
 
-// Função para conectar ao banco de dados
-const connectDB = async () => {
+async function connectDB() {
   try {
-    // Conectando ao MongoDB
-    await mongoose.connect(mongoURI, {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-    });
-    console.log('Conectado ao MongoDB');
-  } catch (error) {
-    console.error('Erro ao conectar ao MongoDB', error);
-    process.exit(1); // Sai se não conseguir conectar
+    await client.connect();
+    console.log("Conectado ao MongoDB!");
+    const db = client.db("sistema_reserva_salas");
+    return db;
+  } catch (err) {
+    console.error(err);
   }
-};
+}
 
-// Exportando a função de conexão
 module.exports = connectDB;
