@@ -1,15 +1,21 @@
-const { DataTypes } = require('sequelize');
-const sequelize = require('./index');
-const User = require('./user');
-const Room = require('./room');
+const mongoose = require('mongoose');
+const User = require('./user'); // Importando o modelo User
+const Room = require('./room'); // Importando o modelo Room
 
-const Reservation = sequelize.define('Reservation', {
-  startTime: { type: DataTypes.DATE, allowNull: false },
-  endTime: { type: DataTypes.DATE, allowNull: false },
-  description: { type: DataTypes.STRING, allowNull: true },
+// Definindo o esquema da reserva
+const reservationSchema = new mongoose.Schema({
+  startTime: { type: Date, required: true },
+  endTime: { type: Date, required: true },
+  description: { type: String, required: false },
+  
+  // Referências para o modelo de User e Room
+  userId: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
+  roomId: { type: mongoose.Schema.Types.ObjectId, ref: 'Room', required: true },
+}, {
+  timestamps: true, // Adiciona createdAt e updatedAt automaticamente
 });
 
-Reservation.belongsTo(User, { foreignKey: 'userId' });
-Reservation.belongsTo(Room, { foreignKey: 'roomId' });
+// Criando o modelo de "Reservation"
+const Reservation = mongoose.model('Reservation', reservationSchema);
 
 module.exports = Reservation;

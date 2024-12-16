@@ -1,19 +1,15 @@
-const { Sequelize } = require('sequelize');
+const mongoose = require('mongoose');
 
-// Inicializando o banco de dados SQLite
-const sequelize = new Sequelize({
-  dialect: 'sqlite',
-  storage: './database.sqlite',
-});
+// URL de conexão com o MongoDB
+const mongoURI = 'mongodb://localhost:27017/sistema_reserva_salas';  // Substitua pelo seu nome de banco
 
-// Teste de conexão
-(async () => {
-  try {
-    await sequelize.authenticate();
-    console.log('Conexão com o banco de dados bem-sucedida.');
-  } catch (error) {
-    console.error('Não foi possível conectar ao banco de dados:', error);
-  }
-})();
+// Conectando ao MongoDB
+mongoose.connect(mongoURI, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+})
+  .then(() => console.log('Conexão com o MongoDB bem-sucedida.'))
+  .catch((err) => console.error('Não foi possível conectar ao MongoDB:', err));
 
-module.exports = sequelize;
+// Exporta o Mongoose para que você possa usá-lo nos modelos
+module.exports = mongoose;
