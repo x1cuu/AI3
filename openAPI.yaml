@@ -10,19 +10,11 @@ servers:
   - url: https://api.dev.exemplo.com
     description: Servidor de Desenvolvimento
 
-tags:
-  - name: Usuários
-    description: Endpoints relacionados a gestão de usuários.
-  - name: Reservas
-    description: Endpoints para criação, edição e visualização de reservas.
-  - name: Salas
-    description: Endpoints para gestão de salas.
-
 paths:
   /users/register:
     post:
       tags:
-        - Usuários
+        - Utilizadores
       summary: Registo de novo utilizador
       description: Regista um novo utilizador.
       requestBody:
@@ -47,14 +39,14 @@ paths:
         400:
           description: Dados inválidos
         409:
-          description: Este utilizador já esxiste
+          description: Este utilizador já existe
         429:
           description: Atingiu o limite de pedidos
 
   /users/Login:
     post:
       tags:
-        - Usuários
+        - Utilizadores
       summary: Login do utilizador
       description: Autentica um utilizador existente.
       requestBody:
@@ -88,7 +80,7 @@ paths:
   /users/passwordRecovery:
     post:
       tags:
-        - Usuários
+        - Utilizadores
       summary: Recuperação de palavra-passe
       description: Envia um link de recuperação para o email do utilizador.
       requestBody:
@@ -148,9 +140,11 @@ paths:
         401:
           description: Credenciais inválidas
         409:
-          description: Esta reserva já esxiste
+          description: Esta reserva já existe
         429:
           description: Atingiu o limite de pedidos
+      security:
+        - bearerAuth: []
 
   /reservation/view:
     get:
@@ -194,6 +188,8 @@ paths:
                     type: array
                     items:
                       $ref: '#/components/schemas/viewReservation'
+      security:
+        - bearerAuth: []
 
   /reservation/{id}:
     put:
@@ -237,6 +233,8 @@ paths:
           description: Credenciais inválidas
         404:
           description: Sala não encontrada
+      security:
+        - bearerAuth: []
 
     delete:
       tags:
@@ -271,14 +269,14 @@ paths:
           description: Credenciais inválidas
         404:
           description: Sala não encontrada
+      security:
+        - bearerAuth: []
 
   /rooms/create:
     post:
       tags:
         - Salas
       summary: Criação de uma nova sala
-      security:
-        - bearerAuth: []
       description: Permite criar uma nova sala com informações como nome, capacidade e equipamentos.
       parameters:
         - name: Authorization
@@ -313,9 +311,11 @@ paths:
         403:
           description: Não autorizado
         409:
-          description: Esta sala já esxiste
+          description: Esta sala já existe
         429:
           description: Atingiu o limite de pedidos
+      security:
+        - bearerAuth: []
 
   /rooms/{id}:
     put:
@@ -361,8 +361,9 @@ paths:
           description: Não autorizado
         404:
           description: Sala não encontrada
+      security:
+        - bearerAuth: []
 
-  /rooms/{id}}:
     delete:
       tags:
         - Salas
@@ -398,13 +399,15 @@ paths:
           description: Não autorizado
         404:
           description: Sala não encontrada
+      security:
+        - bearerAuth: []
 
 components:
   securitySchemes:
-    bearerAuth: # arbitrary name for the security scheme
+    bearerAuth:
       type: http
       scheme: bearer
-      bearerFormat: JWT # optional, arbitrary value for documentation purposes
+      bearerFormat: JWT
   schemas:
     userRegistration:
       type: object
