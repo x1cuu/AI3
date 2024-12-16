@@ -1,20 +1,15 @@
 const mongoose = require('mongoose');
-const bcrypt = require('bcrypt');
+const Schema = mongoose.Schema;
 
 // Definindo o esquema do usuário
-const userSchema = new mongoose.Schema({
+const userSchema = new Schema({
   username: { type: String, required: true },
   email: { type: String, required: true, unique: true },
   password: { type: String, required: true },
-  role: { type: String, default: 'user' }, // Papel padrão é 'user'
+  role: { type: String, default: 'user' }  // Papel padrão
 });
 
-// Método para comparar senhas
-userSchema.methods.comparePassword = function(password) {
-  return bcrypt.compare(password, this.password);
-};
-
-// Cria o modelo do usuário no MongoDB
+// Criando o modelo
 const User = mongoose.model('User', userSchema);
 
 module.exports = User;

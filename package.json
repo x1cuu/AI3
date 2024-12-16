@@ -1,23 +1,22 @@
 {
   "name": "ai3",
   "version": "1.0.0",
-  "description": "- **Francisco Fernandes 25396 (x1cuu)**\r - **João Paulo Santos 21203 (zeto32)**\r - **Rúben Campos 25395 (Reueben)**",
-  "main": "app.js",
+  "description": "Sistema de reserva de salas",
+  "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node server.js"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
   "dependencies": {
     "bcrypt": "^5.1.1",
-    "body-parser": "^1.20.3",
     "dotenv": "^16.4.7",
-    "express": "^4.21.2",
+    "express": "^4.17.1",
     "jsonwebtoken": "^9.0.2",
-    "mongoose": "^8.8.4",
-    "mysql2": "^3.11.5",
-    "sequelize": "^6.37.5",
-    "sqlite3": "^5.1.7"
+    "mongoose": "^5.10.9"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.4"
+  },
+  "engines": {
+    "node": ">=12.0.0"
   }
 }
