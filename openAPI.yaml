@@ -3,16 +3,26 @@ info:
   title: Sistema de Reserva de Salas Online
   description: API para gestão de reservas de salas em tempo real.
   version: "1.0.0"
-  
+
 servers:
   - url: https://api.exemplo.com
     description: Servidor de Produção
   - url: https://api.dev.exemplo.com
     description: Servidor de Desenvolvimento
 
+tags:
+  - name: Usuários
+    description: Endpoints relacionados a gestão de usuários.
+  - name: Reservas
+    description: Endpoints para criação, edição e visualização de reservas.
+  - name: Salas
+    description: Endpoints para gestão de salas.
+
 paths:
   /users/register:
     post:
+      tags:
+        - Usuários
       summary: Registo de novo utilizador
       description: Regista um novo utilizador.
       requestBody:
@@ -43,6 +53,8 @@ paths:
 
   /users/Login:
     post:
+      tags:
+        - Usuários
       summary: Login do utilizador
       description: Autentica um utilizador existente.
       requestBody:
@@ -75,6 +87,8 @@ paths:
 
   /users/passwordRecovery:
     post:
+      tags:
+        - Usuários
       summary: Recuperação de palavra-passe
       description: Envia um link de recuperação para o email do utilizador.
       requestBody:
@@ -97,9 +111,10 @@ paths:
         400:
           description: Dados inválidos
 
-  
   /reservation/create:
     post:
+      tags:
+        - Reservas
       summary: Criação de reserva de sala
       description: Cria uma nova reserva de sala para o utilizador autenticado.
       parameters:
@@ -136,8 +151,11 @@ paths:
           description: Esta reserva já esxiste
         429:
           description: Atingiu o limite de pedidos
+
   /reservation/view:
     get:
+      tags:
+        - Reservas
       summary: Consulta de reservas
       description: Permite visualizar reservas filtrando por sala e/ou data.
       parameters:
@@ -179,6 +197,8 @@ paths:
 
   /reservation/{id}:
     put:
+      tags:
+        - Reservas
       summary: Edição de reserva de sala
       description: Permite editar uma reserva existente.
       parameters:
@@ -219,6 +239,8 @@ paths:
           description: Sala não encontrada
 
     delete:
+      tags:
+        - Reservas
       summary: Cancelamento de reserva de sala
       description: Permite cancelar uma reserva existente.
       parameters:
@@ -252,7 +274,11 @@ paths:
 
   /rooms/create:
     post:
+      tags:
+        - Salas
       summary: Criação de uma nova sala
+      security:
+        - bearerAuth: []
       description: Permite criar uma nova sala com informações como nome, capacidade e equipamentos.
       parameters:
         - name: Authorization
@@ -293,6 +319,8 @@ paths:
 
   /rooms/{id}:
     put:
+      tags:
+        - Salas
       summary: Edição de sala
       description: Permite editar as informações de uma sala existente.
       parameters:
@@ -336,6 +364,8 @@ paths:
 
   /rooms/{id}}:
     delete:
+      tags:
+        - Salas
       summary: Exclusão de sala
       description: Permite excluir uma sala existente.
       parameters:
@@ -368,9 +398,13 @@ paths:
           description: Não autorizado
         404:
           description: Sala não encontrada
-    
 
 components:
+  securitySchemes:
+    bearerAuth: # arbitrary name for the security scheme
+      type: http
+      scheme: bearer
+      bearerFormat: JWT # optional, arbitrary value for documentation purposes
   schemas:
     userRegistration:
       type: object
