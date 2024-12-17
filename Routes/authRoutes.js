@@ -1,5 +1,5 @@
 const express = require('express');
-const authController = require('../controladores/authController');  // Certifique-se de que esse caminho está correto
+const authController = require('../controladores/authController');  
 const router = express.Router();
 
 // Rotas de autenticação

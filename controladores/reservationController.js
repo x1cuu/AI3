@@ -1,13 +1,32 @@
 const Reservation = require('../models/reservation');
 
-exports.createReservation = async (req, res) => {
-  try {
-    const { roomId, startTime, endTime, description } = req.body;
-    const userId = req.userId; // Pegue o ID do usuário autenticado.
+exports.createReservation = (req, res) => {
+  // Lógica para criar reserva
+  res.status(201).json({
+      reservationId: 'id_da_reserva',
+      message: 'Reserva criada com sucesso',
+  });
+};
 
-    const reservation = await Reservation.create({ userId, roomId, startTime, endTime, description });
-    res.status(201).json({ reservationId: reservation.id, message: 'Reserva criada com sucesso' });
-  } catch (error) {
-    res.status(400).json({ error: error.message });
-  }
+exports.viewReservation = (req, res) => {
+  // Lógica para exibir reservas
+  res.status(200).json({
+      reservations: [
+          // Dados da reserva
+      ],
+  });
+};
+
+exports.editReservation = (req, res) => {
+  // Lógica para editar reserva
+  res.status(200).json({
+      message: 'Reserva atualizada com sucesso',
+  });
+};
+
+exports.deleteReservation = (req, res) => {
+  // Lógica para cancelar reserva
+  res.status(200).json({
+      message: 'Reserva cancelada com sucesso',
+  });
 };

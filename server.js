@@ -15,6 +15,7 @@ const authRoutes = require('./Routes/authRoutes');
 
 // Define as rotas
 app.use('/auth', authRoutes);  // Prefixa as rotas com '/auth'
+app.use(bodyParser.json());
 
 // Conectando ao MongoDB
 mongoose.connect(process.env.MONGO_URI || 'mongodb://localhost:27017/sistema_reserva_salas', {
@@ -25,13 +26,13 @@ mongoose.connect(process.env.MONGO_URI || 'mongodb://localhost:27017/sistema_res
 .catch((err) => console.error('Não foi possível conectar ao MongoDB:', err));
 
 // Inicia o servidor
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 3001;
 app.listen(port, () => {
   console.log(`Servidor rodando na porta ${port}`);
 });
 
 app.post('/users/register', (req, res) => {
     console.log('Recebendo requisição de registo');
-    // Restante do código para registar o utilizador
+    
   });
   

@@ -1,13 +1,13 @@
-const bcrypt = require('bcrypt'); // Importação do bcrypt
+const bcrypt = require('bcrypt'); 
 const jwt = require('jsonwebtoken');
-const User = require('../models/user'); // Ajuste o caminho para o modelo de usuário
+const User = require('../models/user'); 
 
 
 exports.userRegistration = async (req, res) => {
     try {
       const { username, email, password, role } = req.body;
   
-      // Validação: Certifique-se de que todos os campos obrigatórios estão presentes
+      
       if (!username || !email || !password) {
         return res.status(400).json({ error: 'Todos os campos são obrigatórios' });
       }
