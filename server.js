@@ -29,3 +29,9 @@ const port = process.env.PORT || 3000;
 app.listen(port, () => {
   console.log(`Servidor rodando na porta ${port}`);
 });
+
+app.post('/users/register', (req, res) => {
+    console.log('Recebendo requisição de registo');
+    // Restante do código para registar o utilizador
+  });
+  
